@@ -1,0 +1,8 @@
+server:
+  port: 0
+
+spring:
+
+  profiles.active: xtearn
+  #
+  #profiles.active: ms1, ms2

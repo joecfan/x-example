@@ -1,0 +1,58 @@
+spring:
+  shardingsphere:
+    datasource:
+      names: db-0, db-1
+      db-0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sharding_0?generateSimpleParameterMetadata=true&serverTimezone=UTC
+        username: root
+        password: admin
+        initialSize: 50
+        min-idle: 50
+        maxActive: 300
+        maxWait: 1000
+        poolPreparedStatements: true
+        testOnBorrow: false
+        testOnReturn: false
+        testWhileIdle: true
+        keepAlive: true
+        removeAbandoned: true
+        removeAbandonedTimeout: 80
+        logAbandoned: true
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        filters: stat,wall
+      db-1:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/sharding_1?generateSimpleParameterMetadata=true&serverTimezone=UTC
+        username: root
+        password: admin
+        initialSize: 50
+        min-idle: 50
+        maxActive: 300
+        maxWait: 1000
+        poolPreparedStatements: true
+        testOnBorrow: false
+        testOnReturn: false
+        testWhileIdle: true
+        keepAlive: true
+        removeAbandoned: true
+        removeAbandonedTimeout: 80
+        logAbandoned: true
+        connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+        filters: stat,wall
+    sharding:
+      default-data-source-name: db-0
+      default-database-strategy:
+        complex:
+          sharding-columns: sharding_id
+          algorithm-class-name: com.baw.sharding.algorithm.DbAlgorithm
+      tables:
+        tb_test:
+          tableStrategy:
+            complex:
+              shardingColumns: sharding_id
+              algorithmClassName: com.baw.sharding.algorithm.TbAlgorithm
+mybatis.config-location: classpath:mybatis-config.xml
+mybatis.mapper-locations: classpath:com/baw/sharding/dao/*Mapper.xml
