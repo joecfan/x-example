@@ -1,13 +1,13 @@
-package com.example.gateway;
+package com.example.mock;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ExceptionApplication {
+public class MockApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ExceptionApplication.class, args);
+		SpringApplication.run(MockApplication.class, args);
 	}
 
 }
