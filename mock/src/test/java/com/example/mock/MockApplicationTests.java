@@ -30,6 +30,9 @@ public class MockApplicationTests {
 	@Autowired
 	private MockService mockService;
 
+	/**
+	 * mock静态方法
+	 */
 	@Test
 	public void testStaticMethod() {
 
