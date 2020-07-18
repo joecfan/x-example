@@ -6,5 +6,10 @@ package com.example.common.util;
  **/
 public class Tools {
 
+    public static void main(String[] args) {
+        long m = System.currentTimeMillis();
+        System.out.println(m);
+    }
+
 
 }
