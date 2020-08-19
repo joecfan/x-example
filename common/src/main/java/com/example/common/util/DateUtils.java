@@ -22,10 +22,11 @@ import java.util.Map;
 @Slf4j
 public class DateUtils {
     public static void main(String[] args) {
-        LocalDate ld = str2localDate("20180601", "yyyyMMdd");
-        ld = parseStartDate("0506");
-
-        System.out.println(ld);
+       /* int days = betweenDays("20200812", "20210803");
+        LocalDate ld = getDate("20200812",-5);
+        System.out.println(Math.abs(days));*/
+        boolean b = isSameYearSpecial("0817","20200817112233","20210817000000");
+        System.out.println(b);
 
     }
 
@@ -301,6 +302,25 @@ public class DateUtils {
         return isSameYear;
     }
 
+    public static boolean isSameYearSpecial(String startDate, String lastTmTxTime, String txDate) {
+        boolean isSameYear = true;
+
+        LocalDate lastTmTximeLd = str2localDate(lastTmTxTime, "yyyyMMddHHmmss");
+        LocalDate txDateLd = str2localDate(txDate, "yyyyMMddHHmmss");
+        LocalDate startDateLd = parseStartDate(startDate);
+
+        if (lastTmTximeLd.compareTo(startDateLd) < 0 && txDateLd.compareTo(startDateLd) >= 0) {
+            isSameYear = false;
+        } else {
+            Period period = Period.between(startDateLd, txDateLd);
+            if (period.getYears() >= 1) {
+                isSameYear = false;
+            }
+        }
+
+        return isSameYear;
+    }
+
     /**
      * 字符串转localDate
      * @param strDate
@@ -333,5 +353,20 @@ public class DateUtils {
             log.error(e.getMessage(), e);
         }
         return localDateTime;
+    }
+
+    public static int betweenDays(String startDate, String endDate) {
+
+        LocalDate startLocalDate = str2localDate(startDate, "yyyyMMdd");
+        LocalDate endLocalDate = str2localDate(endDate, "yyyyMMdd");
+
+        Period period = Period.between(startLocalDate, endLocalDate);
+
+        return period.getDays();
+    }
+
+    public static LocalDate getDate(String strDate, int days) {
+        LocalDate startLocalDate = str2localDate(strDate, "yyyyMMdd");
+        return startLocalDate.plusDays(days);
     }
 }
