@@ -2,13 +2,11 @@ package com.example.common.util;
 
 import com.esotericsoftware.reflectasm.FieldAccess;
 import com.esotericsoftware.reflectasm.MethodAccess;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.EvaluationContext;
 import org.springframework.expression.Expression;
 import org.springframework.expression.ExpressionParser;
 import org.springframework.expression.ParseException;
-import org.springframework.expression.common.TemplateParserContext;
 import org.springframework.expression.spel.ExpressionState;
 import org.springframework.expression.spel.SpelNode;
 import org.springframework.expression.spel.ast.VariableReference;
@@ -37,13 +35,43 @@ public class Utils {
 
     public static void main(String[] args) {
 
-        List<String> list = new ArrayList<>();
-        list.add("11");
-        list.add("12");
-        Iterator it = list.iterator();
-        while(it.hasNext()) {
-            it.next();
-            it.remove();
+        String str = "abc 123 ";
+        String prefix = "abc";
+        int idex = str.lastIndexOf(prefix);
+        str = str.replaceFirst(prefix, "").trim();
+        Object o = null;
+        List<Integer> s = (List<Integer>)o;
+
+//        String code = "101010";
+//
+//
+//        SubParamValidateVo subParamValidateVo = new SubParamValidateVo();
+//        subParamValidateVo.setSubParam1("sub1");
+//        subParamValidateVo.setAa("aa");
+//
+//        Object val = getFieldVal(subParamValidateVo, "subParam1");
+//        System.out.println(val);
+
+        List<Integer> list = new ArrayList<>();
+        list.add(0);
+        list.add(1);
+        list.add(2);
+        list.add(3);
+        list.add(4);
+
+        List<Integer> list2 = new ArrayList<>();
+        list2.add(0);
+        list2.add(4);
+        List<Integer> list3 = new ArrayList<>();
+
+        for (Integer it : list) {
+            for (Integer it2 : list2) {
+                if (it.equals(it2)) {
+                    list3.add(it);
+                    break;
+                }
+            }
+            break;
         }
 
         long startTime = System.currentTimeMillis();
@@ -118,6 +146,11 @@ public class Utils {
         }
 
         System.out.println(System.nanoTime()-startTime);
+
+    }
+
+    public static Object getFieldVal(ParamValidateVo paramValidateVo, String fieldName) {
+        return getObjField(paramValidateVo, fieldName);
 
     }
 
@@ -249,7 +282,7 @@ public class Utils {
         return result.booleanValue();
     }
 
-    public static boolean eval2(String expression, Map<String, Integer> varMap) {
+    public static boolean eval2(String expression, Map<String, String> varMap) {
 
         Boolean result = Boolean.FALSE;
         ExpressionParser parser = new SpelExpressionParser();
@@ -258,7 +291,7 @@ public class Utils {
             Expression parseExpression = parser.parseExpression(expression);
 
             EvaluationContext context = new StandardEvaluationContext();
-            for (Map.Entry<String, Integer> entry : varMap.entrySet()) {
+            for (Map.Entry<String, String> entry : varMap.entrySet()) {
                 context.setVariable(entry.getKey(), entry.getValue());
             }
 
@@ -332,4 +365,5 @@ public class Utils {
         }
         System.out.println();
     }
+
 }

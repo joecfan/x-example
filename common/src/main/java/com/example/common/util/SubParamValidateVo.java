@@ -9,7 +9,7 @@ import javax.validation.constraints.NotEmpty;
  * @date: 15:54 2020/8/13
  **/
 @Data
-public class SubParamValidateVo {
+public class SubParamValidateVo extends ParamValidateVo{
 
     @NotEmpty(message = "subParam1为空")
     private String subParam1;

@@ -4,13 +4,15 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author: zhuhui bao
  * @date: 15:43 2020/8/13
  **/
 @Data
-public class ParamValidateVo extends SubParamValidateVo{
+//public class ParamValidateVo extends SubParamValidateVo{
+public class ParamValidateVo {
 
     @NotEmpty(message = "AA为空")
     private String aa;
@@ -23,4 +25,6 @@ public class ParamValidateVo extends SubParamValidateVo{
     private BigDecimal amt;
 
     //private SubParamValidateVo subParamValidateVo;
+
+    //private List<SubParamValidateVo> subParamValidateVoList;
 }

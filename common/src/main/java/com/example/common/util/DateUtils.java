@@ -20,6 +20,9 @@ import java.util.*;
 public class DateUtils {
     public static void main(String[] args) {
 
+        System.out.println(System.currentTimeMillis());
+
+
        /* int days = betweenDays("20200812", "20210803");
         LocalDate ld = getDate("20200812",-5);
         System.out.println(Math.abs(days));*/

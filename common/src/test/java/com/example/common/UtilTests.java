@@ -34,10 +34,11 @@ public class UtilTests {
 
     @Test
     public void eval2Test003() {
-        Map<String, Integer> varMap = new HashMap<>();
-        varMap.put("value1", 1);
-        varMap.put("value2", 2);
-        boolean b = Utils.eval2("#value1between {1,2} and #value2 == 2", varMap);
+        Map<String, String> varMap = new HashMap<>();
+        //varMap.put("value1", 1);
+        varMap.put("value2", "2");
+        //boolean b = Utils.eval2("#value1between {1,2} and #value2 == 2", varMap);
+        boolean b = Utils.eval2("#value2 == '2'", varMap);
 
         Assert.isTrue(b, "不是逾期返回值");
     }

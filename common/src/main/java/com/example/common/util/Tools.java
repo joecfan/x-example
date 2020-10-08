@@ -1,5 +1,8 @@
 package com.example.common.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 /**
  * @author: zhuhui bao
  * @date: 13:43 2020/1/15
@@ -7,12 +10,21 @@ package com.example.common.util;
 public class Tools {
 
     public static void main(String[] args) {
-        int i = 5;
-        Integer s ;
-        s = i;
-        System.out.println(s);
-        long m = System.currentTimeMillis();
-        System.out.println(m);
+
+        BigDecimal bg = new BigDecimal("12.123");
+        bg = bg.setScale(1, RoundingMode.DOWN);
+
+        int i = 1;
+        test(i);
+    }
+
+    public static void test(int i) {
+
+        if (i == 1) {
+            throw new ClassCastException("123");
+        } else if (i == 2) {
+            throw new ArithmeticException("456");
+        }
     }
 
 

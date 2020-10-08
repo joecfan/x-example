@@ -5,6 +5,8 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,12 +16,21 @@ import java.util.Set;
 public class ParamValidateUtil {
 
     public static void main(String[] args) {
+
+        BigDecimal bg = new BigDecimal("102.0");
+        //bg = bg.setScale(0, BigDecimal.ROUND_DOWN);
+        System.out.println(bg);
+
         ParamValidateVo vo =  new ParamValidateVo();
-//        vo.setAa("xxxx");
-        //vo.setBb(" ");
-        //vo.setAmt(BigDecimal.ZERO);
+        vo.setAa("xxxx");
+        vo.setBb(" ");
+        vo.setAmt(BigDecimal.TEN);
         //vo.setSubParam1("sss");
-        ParamValidateUtil.validate(vo);
+        SubParamValidateVo subParamValidateVo = new SubParamValidateVo();
+        //ParamValidateUtil.validate(subParamValidateVo);
+
+        List<SubParamValidateVo> subParamValidateVoList = new ArrayList<>();
+        ParamValidateUtil.validate(subParamValidateVoList);
     }
 
     private static Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
