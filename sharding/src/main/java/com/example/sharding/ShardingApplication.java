@@ -12,8 +12,8 @@ import org.springframework.context.annotation.ComponentScan;
  * @desc：分库分表例子
  **/
 @SpringBootApplication(exclude = {JtaAutoConfiguration.class})
-@ComponentScan("com.baw.sharding")
-@MapperScan(basePackages = {"com.baw.sharding.dao"})
+@ComponentScan("com.example.sharding")
+@MapperScan(basePackages = {"com.example.sharding.dao"})
 public class ShardingApplication {
 
     public static void main(String[] args) {

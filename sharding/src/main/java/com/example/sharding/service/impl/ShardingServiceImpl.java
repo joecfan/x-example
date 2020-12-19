@@ -1,9 +1,9 @@
 package com.example.sharding.service.impl;
 
-import com.baw.sharding.dao.TbTestMapper;
-import com.baw.sharding.entity.TbTest;
-import com.baw.sharding.entity.TbTestExample;
-import com.baw.sharding.service.ShardingService;
+import com.example.sharding.dao.TbTestMapper;
+import com.example.sharding.entity.TbTest;
+import com.example.sharding.entity.TbTestExample;
+import com.example.sharding.service.ShardingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

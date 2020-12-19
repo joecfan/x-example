@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>exception</artifactId>
+	<artifactId>common</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>common</name>
 	<description>Demo project for Spring Boot</description>
@@ -68,9 +68,13 @@
 			<artifactId>cglib</artifactId>
 			<version>3.3.0</version>
 		</dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 
 	<build>
 		<plugins>

@@ -19,18 +19,31 @@ import java.util.List;
  **/
 public class JsonUtil {
 
-    public static void main(String[] args) {
-        Vo vo = new Vo();
-        vo.setAa("a");
-        vo.setCc("c");
-
-        Vo2 vo2 = new Vo2();
-        vo2.setAa("a");
-        BeanUtils.copyProperties(vo, vo2);
-
-
-        System.out.println(123);
-    }
+//    public static void main(String[] args) {
+//        List<Vo2> vo2List = new ArrayList<>();
+//        Vo2 vo12 = new Vo2();
+//        vo12.setAa("2a");
+//        vo2List.add(vo12);
+//
+//        List<Vo> voList = new ArrayList<>();
+//        Vo vo = new Vo();
+//        vo.setAa("a");
+//        vo.setCc("c");
+//        vo.setVo2List(vo2List);
+//        voList.add(vo);
+//        vo = new Vo();
+//        vo.setAa("a");
+//        vo.setCc("c");
+//        vo.setVo2List(vo2List);
+//        voList.add(vo);
+//
+//        Vo2 vo2 = new Vo2();
+//        vo2.setAa("a");
+//        BeanUtils.copyProperties(vo, vo2);
+//
+//
+//        System.out.println(123);
+//    }
 
     /**
      * ArryayList格式的队列转为json String

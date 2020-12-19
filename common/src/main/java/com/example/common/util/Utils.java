@@ -19,12 +19,12 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author: zhuhui bao
@@ -33,120 +33,35 @@ import java.util.regex.Pattern;
 @Slf4j
 public class Utils {
 
-    public static void main(String[] args) {
+    public static String leftPadZero(String arg, int length) {
 
-        String str = "abc 123 ";
-        String prefix = "abc";
-        int idex = str.lastIndexOf(prefix);
-        str = str.replaceFirst(prefix, "").trim();
-        Object o = null;
-        List<Integer> s = (List<Integer>)o;
+        return String.format("%0" + length + "d", Integer.parseInt(arg));
+    }
 
-//        String code = "101010";
-//
-//
-//        SubParamValidateVo subParamValidateVo = new SubParamValidateVo();
-//        subParamValidateVo.setSubParam1("sub1");
-//        subParamValidateVo.setAa("aa");
-//
-//        Object val = getFieldVal(subParamValidateVo, "subParam1");
-//        System.out.println(val);
+    /**
+     * 截字符串，从指定字符串的后面开始截，比如str=abc123,prefix=abc，返回123
+     * @param str
+     * @param prefix
+     * @return
+     */
+    public static String substring(String str, String prefix) {
 
-        List<Integer> list = new ArrayList<>();
-        list.add(0);
-        list.add(1);
-        list.add(2);
-        list.add(3);
-        list.add(4);
+        if (!StringUtils.isEmpty(str)) {
+            str = str.replaceFirst(prefix, "").trim();
+        }
+        return str;
+    }
 
-        List<Integer> list2 = new ArrayList<>();
-        list2.add(0);
-        list2.add(4);
-        List<Integer> list3 = new ArrayList<>();
-
-        for (Integer it : list) {
-            for (Integer it2 : list2) {
-                if (it.equals(it2)) {
-                    list3.add(it);
-                    break;
-                }
+    public static String[] split(String str, String startWith) {
+        if (StringUtils.isEmpty(startWith)) {
+            if (str.indexOf("(") >=0 || str.indexOf("(") >=0) {
+                throw new RuntimeException("111");
             }
-            break;
+
+        } else if (str.startsWith(startWith)) {
+            str = str.replaceFirst(startWith, "").replaceFirst("\\(","").replaceFirst("\\)","");
         }
-
-        long startTime = System.currentTimeMillis();
-        for (int i=0; i<1; i++) {
-            boolean b = eval("2>" + i);
-            //System.out.println(b);
-        }
-        System.out.println(System.currentTimeMillis()-startTime);
-
-        startTime = System.currentTimeMillis();
-        for (int i=0; i<1; i++) {
-            boolean b = eval2("2>" + i);
-            //System.out.println(b);//
-        }
-        System.out.println(System.currentTimeMillis()-startTime);
-        Vo vo = new Vo();
-        System.out.println(vo.getClass().getSimpleName());
-        vo.setAa("testaaa");
-        Object aa;
-         startTime = System.nanoTime();
-//       for (int i=0; i< 1; i++) {
-//            Utils.setObjField(vo, "aa","tsss");
-//            //System.out.println(aa);
-//        }
-//        System.out.println(System.nanoTime()-startTime);
-/*
-        startTime = System.nanoTime();
-        for (int i=0; i< 1000000; i++) {
-            vo.setAa("ssss");
-            //System.out.println(aa);
-        }
-        System.out.println(System.nanoTime()-startTime);*/
-
-//        startTime = System.nanoTime();
-//        MethodAccess access = MethodAccess.get(vo.getClass());
-//        for (int i=0; i< 50; i++) {
-//            Utils.setObjFieldAsm(access, vo, "setAa","tsss");
-//            //System.out.println(aa);
-//        }
-//        System.out.println(System.nanoTime()-startTime);
-//
-//        startTime = System.nanoTime();
-//        for (int i=0; i< 1; i++) {
-//            vo.setAa("ssss");
-//            //System.out.println(aa);
-//        }
-//        System.out.println(System.nanoTime()-startTime);
-
-//        startTime = System.nanoTime();
-//        Field[] fields = vo.getClass().getDeclaredFields();
-//
-//
-//        startTime = System.nanoTime();
-//        for (int i=0;i<50;i++) {
-//            fields[0].setAccessible(true);
-//            fields[0].get(vo);
-//        }
-//
-//        System.out.println(System.nanoTime()-startTime);
-
-        startTime = System.nanoTime();
-        for (int i=0;i<50;i++) {
-            Utils.getObjField(vo, "aa");
-        }
-        System.out.println(System.nanoTime()-startTime);
-
-        startTime = System.nanoTime();
-        //Class c = vo.getClass();
-        for (int i=0;i<50;i++) {
-            //Utils.getObjField(c, vo,"aa");
-            Utils.getObjField(vo, "bb");
-        }
-
-        System.out.println(System.nanoTime()-startTime);
-
+        return str.split("\\|");
     }
 
     public static Object getFieldVal(ParamValidateVo paramValidateVo, String fieldName) {
@@ -154,7 +69,7 @@ public class Utils {
 
     }
 
-    public static String subString(String str, int beginIdx, int endIdx) {
+    public static String substring(String str, int beginIdx, int endIdx) {
 
         try {
             str = str == null ? "" : str;
@@ -183,26 +98,10 @@ public class Utils {
         return o;
     }
 
-    public static Object getObjField(Class c, Vo vo,String fieldName) {
-
-        Field field;
-        Object o = null;
-        try {
-            field = c.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            o = field.get(vo);
-        } catch (NoSuchFieldException e) {
-            log.error(e.getMessage());
-        } catch (IllegalAccessException e) {
-            log.error(e.getMessage());
-        }
-        return o;
-    }
-
     public static Object getObjFieldAsm(Object vo, String fieldName) {
-
-        FieldAccess fieldAccess = FieldAccess.get(vo.getClass());
-        return fieldAccess.get(vo, fieldName);
+        // asm不能对私有属性取值，所以改成get方法取
+        MethodAccess access = MethodAccess.get(vo.getClass());
+        return access.invoke(vo, fieldName);
     }
 
     public static void setObjField(Object vo, String fieldName, Object fieldValue) {
@@ -219,6 +118,36 @@ public class Utils {
             log.error(e.getMessage());
         }
     }
+    public static void setObjFieldAsm(Object vo, String fieldName, String value) {
+
+        MethodAccess access = MethodAccess.get(vo.getClass());
+        access.invoke(vo, fieldName, value);
+    }
+
+
+    public static Object getObjField(Class c, Vo vo,String fieldName) {
+
+        Field field;
+        Object o = null;
+        try {
+            field = c.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            o = field.get(vo);
+        } catch (NoSuchFieldException e) {
+            log.error(e.getMessage());
+        } catch (IllegalAccessException e) {
+            log.error(e.getMessage());
+        }
+        return o;
+    }
+
+    //        char[] ca = fieldName.toCharArray();
+//        ca[0] -=32;
+//        String methodNm = org.apache.commons.lang3.StringUtils.join("get" + String.valueOf(ca));
+
+
+
+
 
     public static void setObjFieldAsm(MethodAccess access, Object vo, String fieldName, String value) {
 
@@ -231,6 +160,7 @@ public class Utils {
        // String name = (String)access.invoke(vo, "getAa", null);
       //  System.out.println(name);
     }
+
 
     public boolean isEmpty(Object object) {
 

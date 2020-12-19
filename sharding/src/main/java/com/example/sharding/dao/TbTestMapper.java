@@ -1,7 +1,7 @@
 package com.example.sharding.dao;
 
-import com.baw.sharding.entity.TbTest;
-import com.baw.sharding.entity.TbTestExample;
+import com.example.sharding.entity.TbTest;
+import com.example.sharding.entity.TbTestExample;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

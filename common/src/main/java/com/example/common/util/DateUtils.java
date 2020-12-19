@@ -3,13 +3,11 @@ package com.example.common.util;
 import lombok.extern.slf4j.Slf4j;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.TemporalAdjusters;
+import java.time.temporal.WeekFields;
 import java.util.*;
 
 /**
@@ -18,17 +16,39 @@ import java.util.*;
  **/
 @Slf4j
 public class DateUtils {
-    public static void main(String[] args) {
+//    public static void main(String[] args) {
+//        Vo vo = new Vo();
+//        vo.setCc("cc");
+//        log.info("VO:{}", vo);
+//
+//        StringJoiner sj = new StringJoiner("_","","");
+//        sj.add("aa").add("bb").add("cc");
+//
+//        LocalDate localDate = date2LocalDate(new Date());
+//        LocalDateTime localDateTime = date2LocalDateTime(new Date());
+//        int weekOfYear = weekOfYear(new Date());
+//
+//        weekOfYear = weekOfYear2(new Date());
+//
+//       /* int days = betweenDays("20200812", "20210803");
+//        LocalDate ld = getDate("20200812",-5);
+//        System.out.println(Math.abs(days));*/
+//        boolean b = isSameYearSpecial("0817","20200817112233","20210817000000");
+//        System.out.println(b);
+//
+//    }
 
-        System.out.println(System.currentTimeMillis());
+    public static LocalDate date2LocalDate(Date date) {
+            return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    }
 
+    public static LocalDateTime date2LocalDateTime(Date date) {
+        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+    }
 
-       /* int days = betweenDays("20200812", "20210803");
-        LocalDate ld = getDate("20200812",-5);
-        System.out.println(Math.abs(days));*/
-        boolean b = isSameYearSpecial("0817","20200817112233","20210817000000");
-        System.out.println(b);
-
+    public static int weekOfYear(Date date) {
+        WeekFields weekFields = WeekFields.of(DayOfWeek.MONDAY,1);
+        return date2LocalDate(date).get(weekFields.weekOfYear());
     }
 
     /**
@@ -67,6 +87,15 @@ public class DateUtils {
             }
         }
         return isSameWeek;
+    }
+
+    public static int weekOfYear2(Date date) {
+        Calendar cal1 = Calendar.getInstance();
+
+        cal1.setFirstDayOfWeek(Calendar.MONDAY);
+        cal1.setTime(date);
+
+        return cal1.get(Calendar.WEEK_OF_YEAR);
     }
 
     /**
